@@ -1,11 +1,29 @@
-import { IMG_CDN_URL } from "../constants";
-const RestaurantCard = ({ name, cloudinaryImageId, cuisines, avgRating }) => {
+import React from 'react';
+import {Link} from "react-router-dom";
+import { IMG_CDN_URL } from "../utils/constants";
+
+
+const RestaurantCard = ({
+  name,
+  cloudinaryImageId,
+  cuisines,
+  avgRating,
+  locality,
+  deliveryTime,
+}) => {
   return (
     <div className="card">
-      <img src={IMG_CDN_URL + `${cloudinaryImageId}`} alt="img" />
-      <h2>{name}</h2>
-      <h3>{cuisines.join(", ")}</h3>
-      <h4>{avgRating} stars</h4>
+      <img src={IMG_CDN_URL + `${cloudinaryImageId}`} alt="img" className="card-img"/>
+      <span className="bold">{name}</span>
+      <br />
+      <span className="bold">
+        {avgRating} stars • {deliveryTime} mins
+      </span>
+      <br />
+      <br />
+      <span className="card-cuisins">{cuisines.join(", ")}</span>
+      <br />
+      <span>{locality}</span>
     </div>
   );
 };
