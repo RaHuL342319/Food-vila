@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { API_RES } from "../utils/constants";
 import {Link} from 'react-router-dom';
+import useOnlineStatus from "../utils/useOnlineStatus";
 import restaurantList from "../utils/mockData";
 /**
  * 
@@ -39,12 +40,15 @@ const Body = () => {
       API_RES
     );
     let json = await data.json();
+    console.log(json);
     // setting restaurant
     setRestaurants(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json.data.success.cards[4].gridWidget.gridElements.infoWithStyle.restaurants
+      // json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFilteredRestaurants(
-      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json.data.success.cards[4].gridWidget.gridElements.infoWithStyle.restaurants
+      //json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
@@ -55,12 +59,15 @@ const Body = () => {
     getRestaurants();
   }, []);
 
+  const onlineStatus = useOnlineStatus(); 
+  if(onlineStatus === false) return(<h1>Looks like you are offline!! Pleae check your Internet connection</h1>);
+
   // Conditional Rendering
   // if restaurant is empty => shimmer UI
   // if restaurant has data => actual data UI
 
   // not render component (early return)
-  if (!restaurants) return null;
+  if(!restaurants) return null;
 
   return restaurants.length === 0 ? (
     <Shimmer />

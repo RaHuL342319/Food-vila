@@ -1,7 +1,6 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { IMG_CDN_URL } from "../utils/constants";
-
 
 const RestaurantCard = ({
   name,
@@ -13,7 +12,11 @@ const RestaurantCard = ({
 }) => {
   return (
     <div className="card">
-      <img src={IMG_CDN_URL + `${cloudinaryImageId}`} alt="img" className="card-img"/>
+      <img
+        src={IMG_CDN_URL + `${cloudinaryImageId}`}
+        alt="img"
+        className="card-img"
+      />
       <span className="bold">{name}</span>
       <br />
       <span className="bold">

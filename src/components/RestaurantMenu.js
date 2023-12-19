@@ -1,29 +1,22 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MENU_API } from "../utils/constants";
+import useRestaurantMenu from "../utils/UseRestaurantMenu";
 import Shimmer from "./Shimmer";
 import RestaurantMenuCard from "./RestaurantMenuCard";
 
 const RestaurantMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
-
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-
   const { resId } = useParams();
-  const fetchMenu = async () => {
-    const data = await fetch(MENU_API + resId);
-    const json = await data.json();
-    setResInfo(json);
-  };
+
+  // custom hooks
+  const resInfo = useRestaurantMenu(resId);
 
   // early return
   if (resInfo === null) {
     return <Shimmer />;
   }
 
-  console.log(resInfo?.data?.cards[0]?.card?.card?.info);
+  {
+    console.log(resInfo?.data?.cards);
+  }
   const {
     name,
     cuisines,
@@ -31,7 +24,7 @@ const RestaurantMenu = () => {
     avgRatingString,
     city,
     totalRatingsString,
-  } = resInfo?.data?.cards[0]?.card?.card?.info;
+  } = resInfo?.data?.cards[2]?.card?.card?.info;
 
   return (
     <div className="res-info">
@@ -46,9 +39,9 @@ const RestaurantMenu = () => {
         </div>
 
         <div>
-          <button style={{width:"100px"}}>{avgRatingString}</button>
+          <button style={{ width: "100px" }}>{avgRatingString}</button>
           <br />
-          <button  style={{width:"100px"}}>{totalRatingsString}</button>
+          <button style={{ width: "100px" }}>{totalRatingsString}</button>
           <br />
         </div>
       </div>
@@ -57,7 +50,7 @@ const RestaurantMenu = () => {
       </div> */}
 
       <div className="res-menu">
-        {resInfo?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.map(
+        {resInfo?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.map(
           (itemType) => {
             // console.log(itemType)
             return (
