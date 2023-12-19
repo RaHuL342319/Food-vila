@@ -73,7 +73,7 @@ const Body = () => {
     <Shimmer />
   ) : (
     <>
-      <div className="features">
+      {/* <div className="features">
         <div className="filter">
           <button
             className="filter-btn"
@@ -109,6 +109,60 @@ const Body = () => {
         </div>
       </div>
       <div className="restaurant-list">
+        {/* if filteredrestaurant is not found 
+        {filteredRestaurants?.length === 0 ? (
+          <h1>No Restaurnat match your Filter!!</h1>
+        ) : (
+          filteredRestaurants.map((restaurant) => {
+            return (
+              <Link to={`/restaurants/${restaurant?.info?.id}`} key={restaurant?.info?.id}><RestaurantCard
+              {...restaurant?.info}
+              deliveryTime={...restaurant?.info?.sla.deliveryTime}
+              /></Link>
+            );
+          })
+        )}
+      </div> */}
+
+
+<div className="flex px-4 justify-between">
+        
+        <div className="search-container">
+          <input
+            type="text"
+            className="border-solid border-2 border-gray-200 rounded-sm"
+            placeholder="Search"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+
+          <button
+            className="border bg-gray-200 px-2 py-1 rounded-md m-4 hover:scale-95"
+            onClick={() => {
+              // need to filter data
+              const data = filterData(searchText, restaurants);
+              // set the restaurants with this data
+              console.log(data);
+              setFilteredRestaurants(data);
+            }}
+          >
+            Search
+          </button>
+        </div>
+          <div className="filter">
+          <button
+            className="border bg-gray-200 px-2 py-1 rounded-md m-4 hover:scale-95"
+            onClick={() => {
+              const data = filterData1(restaurants);
+              setFilteredRestaurants(data);
+            }}
+          >
+            Top rated Restaurants
+          </button>
+        </div>
+        </div>
+
+      <div className="flex flex-wrap justify-start px-9">
         {/* if filteredrestaurant is not found */}
         {filteredRestaurants?.length === 0 ? (
           <h1>No Restaurnat match your Filter!!</h1>
